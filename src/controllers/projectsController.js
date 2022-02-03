@@ -35,24 +35,31 @@ function getImagesController(req,res){
 };
 
 function postProjectController(req,res){
-    projectsModel.postProject(req.body);
+    projectsModel.postProject(req.body)
     .then((result) => res.status(201).json(result))
     .catch((err) => res.status(500).send('could not save your project'))
 };
 
 function putProjectController(req,res){
     const projectId = req.params.id;
-    projectsModel.putProject(albumId, req.body)
+    projectsModel.putProject(projectId, req.body)
     .then(() => res.sendStatus(204))
     .catch((err) => res.status(500).send('sorry could not update that project'))
 };
 
 function deleteProjectController(req,res){
     const projectId=req.params.id;
-    projectModel.deleteProject(projectId)
+    projectsModel.deleteProject(projectId)
     .then((respuesta) => res.status(204))
-    .catch((err) => res.status(500).send('could not erase that project'));
+    .catch((err) =>{
+        console.error(err);
+       return res.status(500).send('could not erase that project');
+    })
 };
+
+
+
+
 
 module.exports = {
     getProjectsController,

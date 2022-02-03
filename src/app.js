@@ -8,8 +8,8 @@ const app = express();
 
 app.use(express.json());
 
-app.use('api/projects', projectsRoutes);
-app.use('api/pictures', imagesRoutes);
+app.use('/api/projects', projectsRoutes);
+//app.use('api/pictures', imagesRoutes);
 
 
 

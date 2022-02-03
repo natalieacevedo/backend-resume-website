@@ -1,13 +1,13 @@
-const connection = require(../db-config.js);
+const connection = require('../db-config.js');
 
 function getProjects(){
     return connection.promise()
     .query('SELECT * FROM projects')
-    .then([results] => {
+    .then(results=> {
         console.log(results);
-        return results;
+        return results[0];
     })
-    .catch((err) => return err);
+    .catch((err) => err);
 };
 
 function getProject(projectId){
@@ -33,20 +33,14 @@ function getProjectImages(projectId) {
   };
 
   function postProject(newProject) {
-    const { name,year,skills } = newProject;
+    const { name,date,skills } = newProject;
     return connection
       .promise()
       .query(
-        'INSERT INTO projects (name,year,skills ) VALUES(?,?,?)',
-        [name,year,skills]
-      )
-      .then((results) => {
-        res.status(201).send('project successfully saved')
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).send('could not save the project')
-      });
+        'INSERT INTO projects (name,date,skills ) VALUES(?,?,?)',
+        [name,date,skills]
+      );
+      
   };
 
   function putProject(projectId, properties){
@@ -67,13 +61,37 @@ function getProjectImages(projectId) {
     .promise()
     .query('DELETE FROM projects WHERE id=?', [projectId])
     .then(([results]) => {
-      return results.affectedRows;
+      console.log(results + 'hola');
+      return results.affectedRows === 1;
+
     })
     .catch((err) => {
       console.log(err);
       return Promise.reject();
     });
   };
+
+// const deleteEvent = (req, res) => {
+//   const id = req.params.id;
+
+//   connection.query("DELETE FROM event WHERE id = ?", [id], (err, result) => {
+//     if (err) {
+//       console.log(err);
+//       res.status(500).send("Error deleting the party");
+//     } else {
+//       if (result.affectedRows === 0) {
+//         res.status(401).send("Party not found");
+//       } else {
+//         res.status(201).send("Party successfully deleted");
+//       }
+//     }
+//   });
+// };
+
+
+
+
+
 
   module.exports = {
     getProjects,
