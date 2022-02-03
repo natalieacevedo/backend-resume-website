@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const projectsRoutes = require('./routes/projectsRoutes');
-const imagesRoutes = require('./routes/imagesRoutes');
+const picturesRoutes = require('./routes/picturesRoutes');
+
 const contactRoutes = require('./routes/contactRoutes');
 const cors = require("cors");
 const app = express();
@@ -20,7 +21,7 @@ app.use(
 );
 
 app.use('/api/projects', projectsRoutes);
-//app.use('api/pictures', imagesRoutes);
+app.use('api/pictures', picturesRoutes);
 app.use('/api/contact', contactRoutes);
 
 

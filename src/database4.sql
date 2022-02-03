@@ -12,6 +12,7 @@ CREATE TABLE `projects`(
     date DATE NOT NULL,
     skills VARCHAR(250) NOT NULL,
     
+    
 );
 
 DROP TABLE IF EXITS `images`;
