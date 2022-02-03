@@ -25,13 +25,17 @@ function getImagesController(req,res){
     const projectId = req.params.id;
     projectsModel.getProjectImages(projectId)
     .then((images) => {
-        if(images[0]){
-            res.status(200).json(images);  
-        }else{
-            res.status(404).send('no images in this project')
-        }
+        res.status(200).json(images);  
     })
     .catch((err) => res.status(500).send('error getting the images of this project '))
+};
+
+function postImagesController(req,res){
+    console.log(req.body);
+    const projectId = req.params.id;
+    projectsModel.postImage(req.body,projectId)
+    .then(() => res.sendStatus(201))
+    .catch((err) => res.status(500).send('sorry could not create that image'))
 };
 
 function postProjectController(req,res){
@@ -67,6 +71,7 @@ module.exports = {
     getImagesController,
     postProjectController,
     putProjectController,
-    deleteProjectController
+    deleteProjectController,
+    postImagesController
 
 };

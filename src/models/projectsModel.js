@@ -71,27 +71,19 @@ function getProjectImages(projectId) {
     });
   };
 
-// const deleteEvent = (req, res) => {
-//   const id = req.params.id;
 
-//   connection.query("DELETE FROM event WHERE id = ?", [id], (err, result) => {
-//     if (err) {
-//       console.log(err);
-//       res.status(500).send("Error deleting the party");
-//     } else {
-//       if (result.affectedRows === 0) {
-//         res.status(401).send("Party not found");
-//       } else {
-//         res.status(201).send("Party successfully deleted");
-//       }
-//     }
-//   });
-// };
+function postImage(picture,project_id) {
 
-
-
-
-
+    const { url,title } = picture;
+    return connection
+      .promise()
+      .query(
+        'INSERT INTO images (url,title,project_id ) VALUES(?,?,?)',
+        [url,title,project_id]
+      
+      );
+      
+  };
 
   module.exports = {
     getProjects,
@@ -99,7 +91,8 @@ function getProjectImages(projectId) {
     getProjectImages,
     postProject,
     putProject,
-    deleteProject
+    deleteProject,
+    postImage
 
   };
   
