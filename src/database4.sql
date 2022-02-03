@@ -28,4 +28,12 @@ REFERENCES projects(id)
 );
 
 
+DROP TABLE IF EXITS `contact`;
+
+CREATE TABLE `contact`(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(250) NOT NULL,
+    email VARCHAR(250) NOT NULL,
+    message VARCHAR(250) NOT NULL,
+)
 
